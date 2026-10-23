@@ -4,6 +4,7 @@ enum ProviderID: String, CaseIterable, Codable, Sendable, Identifiable {
     case codex
     case opencodeGo
     case spark
+    case deepSeek, kimi, glm, miniMax, openRouter, stepFun, custom
 
     var id: String { rawValue }
 
@@ -11,7 +12,14 @@ enum ProviderID: String, CaseIterable, Codable, Sendable, Identifiable {
         switch self {
         case .codex: "ChatGPT"
         case .opencodeGo: "OpenCode Go"
-        case .spark: "讯飞星火 X2.6"
+        case .spark: "讯飞-x2.6临时"
+        case .deepSeek: "DeepSeek"
+        case .kimi: "Kimi"
+        case .glm: "智谱GLM"
+        case .miniMax: "MiniMax"
+        case .openRouter: "OpenRouter"
+        case .stepFun: "阶跃星辰"
+        case .custom: "自定义"
         }
     }
 
@@ -20,6 +28,13 @@ enum ProviderID: String, CaseIterable, Codable, Sendable, Identifiable {
         case .codex: "G"
         case .opencodeGo: "O"
         case .spark: "讯"
+        case .deepSeek: "D"
+        case .kimi: "K"
+        case .glm: "智"
+        case .miniMax: "M"
+        case .openRouter: "O₂"
+        case .stepFun: "阶"
+        case .custom: "自"
         }
     }
 }
@@ -30,20 +45,29 @@ struct QuotaWindow: Identifiable, Sendable {
     let durationSeconds: Int?
     let remainingFraction: Double
     let resetsAt: Date?
+    var remainingAmount: Double? = nil
+    var totalAmount: Double? = nil
+    var unit: String? = nil
 
     var clampedFraction: Double { min(1, max(0, remainingFraction)) }
 }
 
 struct TotalQuota: Sendable {
     let remaining: Double
-    let total: Double
+    let total: Double?
     let unit: String
     let expiresAt: Date?
+    var resetsAt: Date? = nil
 
     var remainingFraction: Double? {
-        guard total > 0 else { return nil }
+        guard let total, total.isFinite, total > 0 else { return nil }
         return min(1, max(0, remaining / total))
     }
+}
+
+struct BalanceQuota: Sendable {
+    let remaining: Double
+    let currency: String
 }
 
 struct ResetCredits: Sendable {
@@ -57,6 +81,9 @@ struct QuotaSnapshot: Sendable {
     let totalQuota: TotalQuota?
     let resetCredits: ResetCredits?
     let fetchedAt: Date
+    var balance: BalanceQuota? = nil
+    var planName: String? = nil
+    var extra: String? = nil
 
     var ringWindow: QuotaWindow? {
         windows.min { ($0.durationSeconds ?? .max) < ($1.durationSeconds ?? .max) }
@@ -67,6 +94,13 @@ struct QuotaSnapshot: Sendable {
     }
 
     var isLargeCard: Bool { windows.count > 1 || resetCredits != nil }
+
+    var resetWindow: QuotaWindow? {
+        if provider == .codex {
+            return windows.first { $0.durationSeconds == 604_800 }
+        }
+        return windows.max { ($0.durationSeconds ?? 0) < ($1.durationSeconds ?? 0) }
+    }
 }
 
 enum QuotaPercentage {

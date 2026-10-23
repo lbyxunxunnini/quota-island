@@ -19,14 +19,17 @@ final class LayoutPlannerTests: XCTestCase {
         }
     }
 
-    func testCompactLayoutCapsAtThreeAndBalancesThree() {
+    func testCompactLayoutCapsAtFourAndKeepsFirstTwoLeft() {
+        let two = LayoutPlanner.compactSides([0, 1])
+        XCTAssertEqual(two.left, [0, 1])
+        XCTAssertTrue(two.right.isEmpty)
         let three = LayoutPlanner.compactSides([0, 1, 2])
         XCTAssertEqual(three.left, [0, 1])
         XCTAssertEqual(three.right, [2])
 
         let six = LayoutPlanner.compactSides([0, 1, 2, 3, 4, 5])
         XCTAssertEqual(six.left, [0, 1])
-        XCTAssertEqual(six.right, [2])
+        XCTAssertEqual(six.right, [2, 3])
     }
 
     func testCompactSymbolsStayWithProvidersAfterRenaming() {

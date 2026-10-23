@@ -1,13 +1,16 @@
 import AppKit
 import SwiftUI
 
-@main
 struct AIQuotaIslandApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
 
     var body: some Scene {
         Settings { EmptyView() }
             .commands {
+                CommandGroup(replacing: .appSettings) {
+                    Button("设置…") { appDelegate.showSettings() }
+                        .keyboardShortcut(",", modifiers: .command)
+                }
                 CommandMenu("额度") {
                     Button("打开刘海详情") { appDelegate.openExpanded() }
                         .keyboardShortcut("o", modifiers: .command)
@@ -25,8 +28,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var statusItem: NSStatusItem?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
+        if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
+            || NSClassFromString("XCTestCase") != nil { return }
         NSApp.setActivationPolicy(.accessory)
-        let coordinator = QuotaCoordinator(adapters: [CodexAdapter(), OpenCodeGoAdapter(), SparkAdapter()])
+        let coordinator = QuotaCoordinator()
         self.coordinator = coordinator
         let windows = WindowCoordinator(coordinator: coordinator)
         self.windows = windows
@@ -53,6 +58,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     @objc func toggleDesktop() { windows?.toggleDesktop() }
     @objc func openExpanded() { windows?.openExpanded() }
     @objc private func refresh() { Task { await coordinator?.refreshAll(force: true) } }
-    @objc private func showSettings() { windows?.showSettings() }
+    @objc func showSettings() { windows?.showSettings() }
     @objc private func quit() { NSApp.terminate(nil) }
 }

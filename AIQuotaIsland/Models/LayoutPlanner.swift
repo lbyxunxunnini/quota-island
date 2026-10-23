@@ -8,8 +8,8 @@ enum LayoutPlanner {
     }
 
     static func compactSides<Element>(_ items: [Element]) -> (left: [Element], right: [Element]) {
-        let visible = Array(items.prefix(3))
-        let leftCount = min(2, (visible.count + 1) / 2)
+        let visible = Array(items.prefix(4))
+        let leftCount = min(2, visible.count)
         return (Array(visible.prefix(leftCount)), Array(visible.dropFirst(leftCount)))
     }
 }
