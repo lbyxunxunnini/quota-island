@@ -28,8 +28,7 @@ struct ProviderEditorView: View {
     var body: some View {
         VStack(spacing: 0) {
             HStack(spacing: 12) {
-                ProviderMonogram(symbol: config.compactSymbol, size: 22)
-                    .frame(width: 42, height: 42).background(.quaternary, in: RoundedRectangle(cornerRadius: 10))
+                ProviderIcon(provider: config.provider, symbol: config.compactSymbol, size: 42)
                 VStack(alignment: .leading, spacing: 3) {
                     Text("\(isNew ? "添加" : "编辑") \(config.displayName)").font(.title2.bold())
                     Text(config.provider.website).font(.caption).foregroundStyle(.secondary)

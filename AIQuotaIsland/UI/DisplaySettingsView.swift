@@ -90,9 +90,8 @@ struct DisplaySettingsView: View {
     private func providerRow(_ config: ProviderConfig) -> some View {
         HStack(spacing: 7) {
             Image(systemName: "line.3.horizontal").font(.caption).foregroundStyle(.tertiary)
-            ProviderMonogram(symbol: config.compactSymbol, size: 16)
-                .frame(width: 28, height: 30)
-                .background(.quaternary.opacity(0.5), in: RoundedRectangle(cornerRadius: 7))
+            ProviderIcon(provider: config.provider, symbol: config.compactSymbol, size: 28)
+                .frame(height: 30)
             VStack(alignment: .leading, spacing: 3) {
                 Text(config.displayName).fontWeight(.medium).lineLimit(1).minimumScaleFactor(0.8)
                 if !config.remark.isEmpty { Text(config.remark).font(.caption).foregroundStyle(.secondary).lineLimit(1) }

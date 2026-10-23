@@ -82,8 +82,11 @@ struct QuotaCardView: View {
     }
 
     private var name: some View {
-        Text(config.title).font(.system(size: 18, weight: .semibold))
-            .lineLimit(1).minimumScaleFactor(0.75)
+        HStack(spacing: 7) {
+            ProviderIcon(provider: config.provider, symbol: config.compactSymbol, size: 22)
+            Text(config.title).font(.system(size: 18, weight: .semibold))
+                .lineLimit(1).minimumScaleFactor(0.75)
+        }
     }
     @ViewBuilder private var gauge: some View {
         if balanceMode && !hardFailure {
