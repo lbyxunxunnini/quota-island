@@ -91,7 +91,7 @@ struct QuotaCardView: View {
                           symbol: QuotaFormat.currencySymbol(snapshot?.balance?.currency ?? config.currency),
                           reveal: reveal, pulse: snapshot?.fetchedAt)
         } else {
-            RingView(fraction: snapshot?.remainingFraction, accent: QuotaPalette.ringAccent(for: config.provider),
+            RingView(fraction: snapshot?.remainingFraction, accent: QuotaPalette.remainingGreen,
                      failed: hardFailure, reveal: reveal)
         }
     }
@@ -140,7 +140,7 @@ struct QuotaCardView: View {
                     GeometryReader { geometry in
                         ZStack(alignment: .leading) {
                             Capsule().fill(QuotaPalette.track.opacity(0.6))
-                            Capsule().fill(QuotaPalette.barAccent(for: config.provider))
+                            Capsule().fill(QuotaPalette.ocean)
                                 .frame(width: geometry.size.width * window.clampedFraction)
                         }
                     }.frame(height: 8)

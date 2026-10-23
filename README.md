@@ -11,7 +11,7 @@
 ## 功能
 
 - 刘海精简视图、展开详情与桌面额度面板，共享同一份查询快照。
-- 内置 Codex、OpenCode Go、讯飞星火 X2.6、DeepSeek、Kimi Code、GLM、MiniMax、OpenRouter 和 StepFun 适配器。
+- 内置 Codex、OpenCode Go、DeepSeek、Kimi Code、GLM、MiniMax、OpenRouter 和 StepFun 适配器。
 - 添加多个服务实例，设置名称、备注、排序、卡片样式及显示位置；Codex 使用本机登录，仅保留一个实例。
 - 支持自定义 HTTP 请求与 JavaScript 额度提取脚本，提供本地脚本格式化和预览。
 - 刷新间隔可选 1、3、5、10、15、30 分钟，默认 3 分钟，也可从菜单栏立即刷新。

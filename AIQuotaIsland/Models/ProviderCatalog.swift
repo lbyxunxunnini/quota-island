@@ -17,7 +17,6 @@ extension ProviderID {
         switch self {
         case .codex: "chatgpt.com"
         case .opencodeGo: "opencode.ai"
-        case .spark: "maas.xfyun.cn"
         case .deepSeek: "platform.deepseek.com"
         case .kimi: "kimi.com/code"
         case .glm: "open.bigmodel.cn"
@@ -31,7 +30,6 @@ extension ProviderID {
     var credentialTitle: String {
         switch self {
         case .codex: "本机 Codex 登录"
-        case .spark: "Cookie"
         case .openRouter: "Management key"
         case .stepFun: "Oasis-Token"
         case .kimi: "Kimi Code API Key"
@@ -43,7 +41,6 @@ extension ProviderID {
     var credentialHint: String {
         switch self {
         case .codex: "自动读取本机 Codex 的 ChatGPT 登录，不能添加其他实例。"
-        case .spark: "仅查询讯飞-x2.6临时免费 tokens，粘贴该页面的完整 Cookie。"
         case .openRouter: "使用 Management key 查询账户余额，普通推理 Key 不适用。"
         case .stepFun: "使用网页 Oasis-Token 查询 Step Plan 套餐。"
         case .kimi: "使用 Kimi Code 套餐 Key；开放平台和网页会员凭据不互通。"
@@ -55,7 +52,7 @@ extension ProviderID {
     var defaultTemplate: CardTemplate {
         switch self {
         case .codex: .chatGPT
-        case .spark, .deepSeek, .openRouter, .custom: .single
+        case .deepSeek, .openRouter, .custom: .single
         default: .multi
         }
     }
@@ -63,7 +60,7 @@ extension ProviderID {
     var isBalance: Bool { self == .deepSeek || self == .openRouter }
     var availableTemplates: [CardTemplate] {
         if self == .codex { return [.chatGPT] }
-        if isBalance || self == .spark { return [.single] }
+        if isBalance { return [.single] }
         return [.multi, .single]
     }
 }

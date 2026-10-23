@@ -9,7 +9,7 @@ enum QuotaSamples {
             return result
         }
         if config.template == .single {
-            if config.provider != .spark && config.provider != .custom {
+            if config.provider != .custom {
                 return QuotaSnapshot(provider: config.provider,
                                      windows: [QuotaWindow(id: "5h", title: "5 小时", durationSeconds: 18_000,
                                                            remainingFraction: 0.8, resetsAt: now.addingTimeInterval(7200))],

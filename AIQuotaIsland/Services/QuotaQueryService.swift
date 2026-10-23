@@ -8,8 +8,6 @@ enum QuotaQueryService {
         case .opencodeGo:
             if config.isLegacy && credentials.apiKey.isEmpty { return try await OpenCodeGoAdapter().fetch() }
             return try await OpenCodeGoAdapter().validate(key: credentials.apiKey)
-        case .spark:
-            return try await SparkAdapter().validate(cookie: credentials.cookie)
         case .deepSeek:
             return try await DeepSeekAdapter(key: credentials.apiKey).fetch()
         case .kimi:

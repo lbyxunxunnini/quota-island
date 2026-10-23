@@ -29,7 +29,6 @@ enum KeychainStore {
             return result
         }
         if config.isLegacy {
-            if config.provider == .spark { return Credentials(cookie: try readSparkCookie() ?? "") }
             if config.provider == .opencodeGo { return Credentials(apiKey: try readOpenCodeGoKey() ?? "") }
         }
         return Credentials()
@@ -51,18 +50,8 @@ enum KeychainStore {
         }
     }
 
-    private static let sparkService = "com.aiquotaisland.spark"
-    private static let sparkAccount = "free-quota-cookie"
     private static let goService = "com.aiquotaisland.opencode-go"
     private static let goAccount = "workspace-key"
-
-    static func readSparkCookie() throws -> String? {
-        try read(service: sparkService, account: sparkAccount)
-    }
-
-    static func saveSparkCookie(_ value: String) throws {
-        try save(value, service: sparkService, account: sparkAccount)
-    }
 
     static func readOpenCodeGoKey() throws -> String? {
         try read(service: goService, account: goAccount)

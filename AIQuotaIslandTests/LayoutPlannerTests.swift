@@ -35,6 +35,6 @@ final class LayoutPlannerTests: XCTestCase {
     func testCompactSymbolsStayWithProvidersAfterRenaming() {
         XCTAssertEqual(ProviderConfig(id: .opencodeGo, displayName: "自定义名称").compactSymbol, "O")
         XCTAssertEqual(ProviderConfig(id: .codex, displayName: "自定义名称").compactSymbol, "G")
-        XCTAssertEqual(ProviderConfig(id: .spark, displayName: "自定义名称").compactSymbol, "讯")
+        XCTAssertEqual(ProviderConfig(id: .glm, displayName: "自定义名称").compactSymbol, "智")
     }
 }

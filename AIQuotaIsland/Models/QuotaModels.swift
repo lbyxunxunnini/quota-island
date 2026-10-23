@@ -3,7 +3,6 @@ import Foundation
 enum ProviderID: String, CaseIterable, Codable, Sendable, Identifiable {
     case codex
     case opencodeGo
-    case spark
     case deepSeek, kimi, glm, miniMax, openRouter, stepFun, custom
 
     var id: String { rawValue }
@@ -12,7 +11,6 @@ enum ProviderID: String, CaseIterable, Codable, Sendable, Identifiable {
         switch self {
         case .codex: "ChatGPT"
         case .opencodeGo: "OpenCode Go"
-        case .spark: "讯飞-x2.6临时"
         case .deepSeek: "DeepSeek"
         case .kimi: "Kimi"
         case .glm: "智谱GLM"
@@ -27,7 +25,6 @@ enum ProviderID: String, CaseIterable, Codable, Sendable, Identifiable {
         switch self {
         case .codex: "G"
         case .opencodeGo: "O"
-        case .spark: "讯"
         case .deepSeek: "D"
         case .kimi: "K"
         case .glm: "智"

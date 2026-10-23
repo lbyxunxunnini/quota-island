@@ -11,7 +11,6 @@
 		02E34FC2EC07940F28A3CB86 /* ScriptWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC41ED1952E685634166BCDC /* ScriptWorker.swift */; };
 		06A6982B456547EFFA768562 /* StepFunAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9045D7F2B82236095D25B0 /* StepFunAdapter.swift */; };
 		089F5F863F6F98F98E6DC7A0 /* ProviderCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D956BE380A135AEFAAD3FB8 /* ProviderCatalog.swift */; };
-		0C44A2B9132B57D58FA9F283 /* SparkAdapterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512806D795BC4D2B323B30E3 /* SparkAdapterTests.swift */; };
 		0CCA83C2C79ECFF215CA70E8 /* OpenCodeGoAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C3A38C07B71D5555C5D5D2 /* OpenCodeGoAdapter.swift */; };
 		150DE7D98C2B4874D04FFA69 /* GLMAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E7286E72F40845504DDA46 /* GLMAdapter.swift */; };
 		22F396D4CD11C25E299471F4 /* QuotaCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FBC99F0F6087E59748C34B /* QuotaCoordinator.swift */; };
@@ -47,7 +46,6 @@
 		DCCEAB85B8F7D1F54F30C878 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79D56E5C2C0F72585E89BF55 /* Cocoa.framework */; };
 		E81D2B4D2430AE41026A8FCA /* AddProviderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927412286C4C1F037767570F /* AddProviderView.swift */; };
 		EA1D3D9D49ABE57B3A640FFD /* CodexAdapterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC040120A10FE4CAA90F32A /* CodexAdapterTests.swift */; };
-		F480C445475D8DCC93F0A684 /* SparkAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D239D0FB72A66D0C71B1264A /* SparkAdapter.swift */; };
 		FBA1FCD55BE4CFC69A15DE89 /* CoordinatorIsolationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E116F864852E5F1067839A7A /* CoordinatorIsolationTests.swift */; };
 		FDBB9F2937A1F14E95C222BC /* CustomScriptEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E81397FE4889D4B9C9DC6E /* CustomScriptEngine.swift */; };
 /* End PBXBuildFile section */
@@ -75,7 +73,6 @@
 		3BC040120A10FE4CAA90F32A /* CodexAdapterTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CodexAdapterTests.swift; sourceTree = "<group>"; };
 		3C0B63F091341B222844EF5C /* CustomScriptSection.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CustomScriptSection.swift; path = UI/CustomScriptSection.swift; sourceTree = "<group>"; };
 		4171A14C414D6FA5FA95ABE1 /* AIQuotaIslandTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AIQuotaIslandTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		512806D795BC4D2B323B30E3 /* SparkAdapterTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SparkAdapterTests.swift; sourceTree = "<group>"; };
 		54C1250A36D75707AFDAF154 /* CompactNotchView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CompactNotchView.swift; path = UI/CompactNotchView.swift; sourceTree = "<group>"; };
 		5B46BC4E12DB65457F545DE4 /* QuotaQueryService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = QuotaQueryService.swift; path = Services/QuotaQueryService.swift; sourceTree = "<group>"; };
 		6580DEF9BA309D199F4B2F82 /* ScriptProcessRunner.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ScriptProcessRunner.swift; path = Services/ScriptProcessRunner.swift; sourceTree = "<group>"; };
@@ -101,7 +98,6 @@
 		B966731A647CE7F970FFE086 /* AppSettings.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppSettings.swift; path = Services/AppSettings.swift; sourceTree = "<group>"; };
 		BD574E7CCAF3D123F6F44E78 /* QuotaGaugeView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = QuotaGaugeView.swift; path = UI/QuotaGaugeView.swift; sourceTree = "<group>"; };
 		CD9045D7F2B82236095D25B0 /* StepFunAdapter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StepFunAdapter.swift; path = Adapters/StepFunAdapter.swift; sourceTree = "<group>"; };
-		D239D0FB72A66D0C71B1264A /* SparkAdapter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SparkAdapter.swift; path = Adapters/SparkAdapter.swift; sourceTree = "<group>"; };
 		DA12D79EE6FBF397950426D7 /* KimiAdapter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KimiAdapter.swift; path = Adapters/KimiAdapter.swift; sourceTree = "<group>"; };
 		E116F864852E5F1067839A7A /* CoordinatorIsolationTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CoordinatorIsolationTests.swift; sourceTree = "<group>"; };
 		EC41ED1952E685634166BCDC /* ScriptWorker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ScriptWorker.swift; path = Services/ScriptWorker.swift; sourceTree = "<group>"; };
@@ -135,7 +131,6 @@
 				B6E0C80F9CEA0B82984FF5D1 /* AIQuotaIslandApp.swift */,
 				F363E5661E92BA751B39BC45 /* CodexAdapter.swift */,
 				09C3A38C07B71D5555C5D5D2 /* OpenCodeGoAdapter.swift */,
-				D239D0FB72A66D0C71B1264A /* SparkAdapter.swift */,
 				F000DDCC1A42F352A34CFAF3 /* QuotaModels.swift */,
 				B966731A647CE7F970FFE086 /* AppSettings.swift */,
 				A143124ADE4C43EF817A1C04 /* KeychainStore.swift */,
@@ -212,7 +207,6 @@
 			children = (
 				3BC040120A10FE4CAA90F32A /* CodexAdapterTests.swift */,
 				6F5B2762334C0D09FF9B3D8C /* OpenCodeGoAdapterTests.swift */,
-				512806D795BC4D2B323B30E3 /* SparkAdapterTests.swift */,
 				2C54D0D20AD0377A0388B107 /* LayoutPlannerTests.swift */,
 				239FB508015163E9B1169D52 /* QuotaRulesTests.swift */,
 				E116F864852E5F1067839A7A /* CoordinatorIsolationTests.swift */,
@@ -315,7 +309,6 @@
 			files = (
 				EA1D3D9D49ABE57B3A640FFD /* CodexAdapterTests.swift in Sources */,
 				BDEBBB63D31B4502F50D0CEC /* OpenCodeGoAdapterTests.swift in Sources */,
-				0C44A2B9132B57D58FA9F283 /* SparkAdapterTests.swift in Sources */,
 				A580DF9BD01AC0B76EB5B27E /* LayoutPlannerTests.swift in Sources */,
 				A51FC301179EC213AF50DD04 /* QuotaRulesTests.swift in Sources */,
 				FBA1FCD55BE4CFC69A15DE89 /* CoordinatorIsolationTests.swift in Sources */,
@@ -329,7 +322,6 @@
 				4DD3FC765F22989F0BE8D075 /* AIQuotaIslandApp.swift in Sources */,
 				A4221AB0F829E7F7D3F4953C /* CodexAdapter.swift in Sources */,
 				0CCA83C2C79ECFF215CA70E8 /* OpenCodeGoAdapter.swift in Sources */,
-				F480C445475D8DCC93F0A684 /* SparkAdapter.swift in Sources */,
 				8E3F635C5C6E71A14158A814 /* QuotaModels.swift in Sources */,
 				4171B8C8E21A3F2BF6D4A620 /* AppSettings.swift in Sources */,
 				862AF1F4D09FD2AE307CB537 /* KeychainStore.swift in Sources */,

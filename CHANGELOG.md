@@ -4,7 +4,7 @@
 
 - 首个公开开源版本，采用 MIT License。
 - 提供刘海额度视图、桌面面板和菜单栏入口。
-- 内置多种 AI 服务额度与余额适配器，支持服务实例管理和显示设置。
+- 内置 Codex、OpenCode Go、DeepSeek、Kimi、GLM、MiniMax、OpenRouter 和 StepFun 额度与余额适配器，支持服务实例管理和显示设置。
 - 支持自定义 HTTP 请求、JavaScript 提取、离线格式化及预览。
 - 使用 Keychain 保存 App 凭据，提供可配置的自动刷新与手动刷新。
 - 加入无白色四角的双仪表浮岛 App 图标。
