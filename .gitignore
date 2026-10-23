@@ -1,0 +1,12 @@
+.DS_Store
+.build/
+build/
+DerivedData/
+*.xcuserstate
+xcuserdata/
+CLAUDE.md
+.claude/
+AGENTS.md
+.codex/
+.task-driver/
+AGENTS.override.md
