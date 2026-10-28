@@ -1,5 +1,10 @@
 # 更新记录
 
+## 0.1.2 — 2026-10-28
+
+- 修复 App 图标四角显示为直角的问题，为各尺寸图标添加透明圆角。
+- App 版本 0.1.2，构建号 3。
+
 ## 0.1.1 — 2026-10-23
 
 - 为 ChatGPT、OpenCode Go、DeepSeek、Kimi、GLM、MiniMax、OpenRouter 和 StepFun 加入按宣传图风格重新生成的清晰图标。

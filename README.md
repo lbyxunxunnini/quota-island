@@ -1,7 +1,7 @@
 # 配额岛 · Quota Island
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-0.1.1-green.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-0.1.2-green.svg)](CHANGELOG.md)
 ![macOS](https://img.shields.io/badge/macOS-15.0%2B-black.svg)
 
 配额岛是一个原生 macOS AI 额度监控 App，使用 SwiftUI 与 AppKit，在刘海区域和桌面面板中展示额度、余额与重置时间。
@@ -21,9 +21,9 @@
 
 ## 下载
 
-当前版本为 **0.1.1**，可从 [GitHub Releases](https://github.com/lbyxunxunnini/quota-island/releases/tag/0.1.1) 下载适用于 Apple Silicon 与 Intel 的安装包。
+当前版本为 **0.1.2**，可从 [GitHub Releases](https://github.com/lbyxunxunnini/quota-island/releases/tag/0.1.2) 下载适用于 Apple Silicon 与 Intel 的安装包。
 
-本版更新了添加模型、设置和额度卡片中的 8 家服务图标；刘海精简视图继续使用原有字母标识。
+本版修复 App 图标四角显示为直角的问题。
 
 ## 构建与运行
 
