@@ -54,7 +54,11 @@ struct ProviderEditorView: View {
                             }.textFieldStyle(.roundedBorder)
                         } else {
                             Text(config.provider.credentialHint).font(.callout).foregroundStyle(.secondary)
-                            SecureField("粘贴 \(config.provider.credentialTitle)", text: $apiKey).textFieldStyle(.roundedBorder)
+                            if config.provider == .spark {
+                                SecureField("粘贴 Cookie", text: $cookie).textFieldStyle(.roundedBorder)
+                            } else {
+                                SecureField("粘贴 \(config.provider.credentialTitle)", text: $apiKey).textFieldStyle(.roundedBorder)
+                            }
                         }
                         if !isNew {
                             Text("留空沿用已保存的凭据；输入新值后，验证成功才替换。")

@@ -43,7 +43,7 @@ extension ProviderID {
     var credentialHint: String {
         switch self {
         case .codex: "自动读取本机 Codex 的 ChatGPT 登录，不能添加其他实例。"
-        case .spark: "仅查询讯飞-x2.6临时免费 tokens，粘贴该页面的完整 Cookie。"
+        case .spark: "仅查询讯飞-x2.6免费 tokens，粘贴该页面的完整 Cookie。"
         case .openRouter: "使用 Management key 查询账户余额，普通推理 Key 不适用。"
         case .stepFun: "使用网页 Oasis-Token 查询 Step Plan 套餐。"
         case .kimi: "使用 Kimi Code 套餐 Key；开放平台和网页会员凭据不互通。"

@@ -33,17 +33,18 @@ struct ProviderIcon: View {
 
     var body: some View {
         Group {
-            if provider == .custom {
-                ProviderMonogram(symbol: symbol ?? provider.compactSymbol, size: size * 0.55)
-                    .frame(width: size, height: size)
-                    .background(.quaternary.opacity(0.4))
-            } else {
-                Image("Provider-\(provider.rawValue)")
+            if provider != .custom, let image = NSImage(named: "Provider-\(provider.rawValue)") {
+                Image(nsImage: image)
                     .renderingMode(.original)
                     .resizable()
                     .interpolation(.high)
                     .scaledToFit()
                     .frame(width: size, height: size)
+            } else {
+                ProviderMonogram(symbol: symbol ?? provider.compactSymbol, size: size * 0.55)
+                    .foregroundStyle(.white)
+                    .frame(width: size, height: size)
+                    .background(.black)
             }
         }
         .clipShape(RoundedRectangle(cornerRadius: size * 0.22, style: .continuous))

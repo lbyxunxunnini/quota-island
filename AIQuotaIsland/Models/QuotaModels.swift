@@ -12,7 +12,7 @@ enum ProviderID: String, CaseIterable, Codable, Sendable, Identifiable {
         switch self {
         case .codex: "ChatGPT"
         case .opencodeGo: "OpenCode Go"
-        case .spark: "讯飞-x2.6临时"
+        case .spark: "讯飞-x2.6"
         case .deepSeek: "DeepSeek"
         case .kimi: "Kimi"
         case .glm: "智谱GLM"
