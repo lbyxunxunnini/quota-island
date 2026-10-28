@@ -29,21 +29,19 @@ struct ProviderMonogram: View {
 struct ProviderIcon: View {
     let provider: ProviderID
     var symbol: String? = nil
+    var imageData: Data? = nil
     var size: CGFloat = 28
 
     var body: some View {
         Group {
-            if provider == .custom {
-                ProviderMonogram(symbol: symbol ?? provider.compactSymbol, size: size * 0.55)
-                    .frame(width: size, height: size)
-                    .background(.quaternary.opacity(0.4))
+            if provider == .custom, let imageData, let image = NSImage(data: imageData) {
+                Image(nsImage: image).resizable().scaledToFill().frame(width: size, height: size).clipped()
+            } else if provider != .custom, let image = NSImage(named: "Provider-\(provider.rawValue)") {
+                Image(nsImage: image).renderingMode(.original).resizable().interpolation(.high)
+                    .scaledToFit().frame(width: size, height: size)
             } else {
-                Image("Provider-\(provider.rawValue)")
-                    .renderingMode(.original)
-                    .resizable()
-                    .interpolation(.high)
-                    .scaledToFit()
-                    .frame(width: size, height: size)
+                ProviderMonogram(symbol: symbol ?? provider.compactSymbol, size: size * 0.55)
+                    .foregroundStyle(.white).frame(width: size, height: size).background(.black)
             }
         }
         .clipShape(RoundedRectangle(cornerRadius: size * 0.22, style: .continuous))

@@ -1,4 +1,6 @@
 import SwiftUI
+import ImageIO
+import UniformTypeIdentifiers
 
 struct ProviderEditorView: View {
     @ObservedObject var coordinator: QuotaCoordinator
@@ -28,7 +30,7 @@ struct ProviderEditorView: View {
     var body: some View {
         VStack(spacing: 0) {
             HStack(spacing: 12) {
-                ProviderIcon(provider: config.provider, symbol: config.compactSymbol, size: 42)
+                ProviderIcon(provider: config.provider, symbol: config.iconSymbol, imageData: config.iconImage, size: 42)
                 VStack(alignment: .leading, spacing: 3) {
                     Text("\(isNew ? "添加" : "编辑") \(config.displayName)").font(.title2.bold())
                     Text(config.provider.website).font(.caption).foregroundStyle(.secondary)
@@ -45,6 +47,23 @@ struct ProviderEditorView: View {
                             LabeledContent("名称") { Text(config.displayName) }
                         }
                         TextField("备注（可选），例如工作、个人", text: $config.remark).textFieldStyle(.roundedBorder)
+                    }
+                    if config.provider == .custom {
+                        SettingsSection(title: "模型图标") {
+                            HStack(spacing: 12) {
+                                ProviderIcon(provider: .custom, symbol: config.iconSymbol, imageData: config.iconImage, size: 42)
+                                TextField("自定义字符（留空使用名称首字）", text: $config.iconText)
+                                    .textFieldStyle(.roundedBorder)
+                                    .onChange(of: config.iconText) { _, value in
+                                        if value.count > 1 { config.iconText = String(value.prefix(1)) }
+                                        if !value.isEmpty { config.iconImage = nil }
+                                    }
+                                Button("选择图片") { chooseIconImage() }
+                                Button("恢复默认") { config.iconText = ""; config.iconImage = nil }
+                            }
+                            Text("图片或字符将保存在本机；不设置时使用模型名称首字。")
+                                .font(.caption).foregroundStyle(.secondary)
+                        }
                     }
                     SettingsSection(title: "凭据配置") {
                         if config.provider == .custom {
@@ -94,6 +113,25 @@ struct ProviderEditorView: View {
         }
         .frame(width: 900, height: 720)
         .onDisappear { operation?.cancel() }
+    }
+
+    private func chooseIconImage() {
+        let panel = NSOpenPanel()
+        panel.allowedContentTypes = [.image]
+        panel.allowsMultipleSelection = false
+        guard panel.runModal() == .OK, let url = panel.url else { return }
+        let options: [CFString: Any] = [kCGImageSourceCreateThumbnailFromImageAlways: true,
+                                        kCGImageSourceThumbnailMaxPixelSize: 256,
+                                        kCGImageSourceCreateThumbnailWithTransform: true]
+        guard let source = CGImageSourceCreateWithURL(url as CFURL, nil),
+              let image = CGImageSourceCreateThumbnailAtIndex(source, 0, options as CFDictionary),
+              let data = NSBitmapImageRep(cgImage: image).representation(using: .png, properties: [:]) else {
+            message = "无法读取图片，请选择其他图片。"
+            return
+        }
+        config.iconText = ""
+        config.iconImage = data
+        message = nil
     }
 
     private func credentials() throws -> KeychainStore.Credentials {

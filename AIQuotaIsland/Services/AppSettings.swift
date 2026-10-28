@@ -5,6 +5,8 @@ struct ProviderConfig: Codable, Identifiable, Equatable, Sendable {
     let provider: ProviderID
     var customName: String
     var remark: String
+    var iconText: String
+    var iconImage: Data?
     var isVisible: Bool
     var showInCompact: Bool
     var template: CardTemplate
@@ -19,6 +21,8 @@ struct ProviderConfig: Codable, Identifiable, Equatable, Sendable {
         self.provider = provider
         customName = name.isEmpty ? provider.defaultName : name
         remark = ""
+        iconText = ""
+        iconImage = nil
         isVisible = true
         showInCompact = provider == .codex
         template = provider.defaultTemplate
@@ -41,12 +45,17 @@ struct ProviderConfig: Codable, Identifiable, Equatable, Sendable {
     }
     var title: String { remark.isEmpty ? displayName : "\(displayName) · \(remark)" }
     var compactSymbol: String {
-        provider == .custom ? String(displayName.prefix(1)).uppercased() : provider.compactSymbol
+        provider == .custom ? String(displayName.trimmingCharacters(in: .whitespacesAndNewlines).prefix(1)).uppercased() : provider.compactSymbol
+    }
+
+    var iconSymbol: String {
+        let text = iconText.trimmingCharacters(in: .whitespacesAndNewlines)
+        return provider == .custom && !text.isEmpty ? String(text.prefix(1)) : compactSymbol
     }
 
     private enum CodingKeys: String, CodingKey {
         case id, provider, displayName, customName, remark, isVisible, showInCompact
-        case template, baseURL, script, timeout, currency, isLegacy
+        case template, baseURL, script, timeout, currency, isLegacy, iconText, iconImage
     }
 
     init(from decoder: Decoder) throws {
@@ -62,6 +71,8 @@ struct ProviderConfig: Codable, Identifiable, Equatable, Sendable {
         customName = try values.decodeIfPresent(String.self, forKey: .customName)
             ?? values.decodeIfPresent(String.self, forKey: .displayName) ?? provider.defaultName
         remark = try values.decodeIfPresent(String.self, forKey: .remark) ?? ""
+        iconText = try values.decodeIfPresent(String.self, forKey: .iconText) ?? ""
+        iconImage = try values.decodeIfPresent(Data.self, forKey: .iconImage)
         if !values.contains(.remark) && isLegacy && customName != provider.defaultName
             && customName != "Codex" { remark = customName }
         isVisible = try values.decodeIfPresent(Bool.self, forKey: .isVisible) ?? true
@@ -79,6 +90,8 @@ struct ProviderConfig: Codable, Identifiable, Equatable, Sendable {
         try values.encode(provider, forKey: .provider)
         try values.encode(customName, forKey: .customName)
         try values.encode(remark, forKey: .remark)
+        if !iconText.isEmpty { try values.encode(iconText, forKey: .iconText) }
+        try values.encodeIfPresent(iconImage, forKey: .iconImage)
         try values.encode(isVisible, forKey: .isVisible)
         try values.encode(showInCompact, forKey: .showInCompact)
         try values.encode(template, forKey: .template)
