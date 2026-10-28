@@ -92,6 +92,20 @@ struct ProviderConfig: Codable, Identifiable, Equatable, Sendable {
 
 @MainActor
 final class AppSettings: ObservableObject {
+    private struct StoredProvider: Decodable {
+        let config: ProviderConfig?
+
+        private enum CodingKeys: String, CodingKey { case provider, id }
+
+        init(from decoder: Decoder) throws {
+            let values = try decoder.container(keyedBy: CodingKeys.self)
+            let rawProvider = try values.decodeIfPresent(String.self, forKey: .provider)
+                ?? values.decode(String.self, forKey: .id)
+            // Removed providers must not invalidate the remaining saved instances.
+            config = ProviderID(rawValue: rawProvider) == nil ? nil : try ProviderConfig(from: decoder)
+        }
+    }
+
     static let refreshChoices = [1, 3, 5, 10, 15, 30]
     private let defaults: UserDefaults
     @Published var providers: [ProviderConfig] { didSet { save() } }
@@ -102,7 +116,8 @@ final class AppSettings: ObservableObject {
         self.defaults = defaults
         var initial: [ProviderConfig]
         if let data = defaults.data(forKey: "providerConfigs"),
-           let saved = try? JSONDecoder().decode([ProviderConfig].self, from: data) {
+           let stored = try? JSONDecoder().decode([StoredProvider].self, from: data) {
+            let saved = stored.compactMap(\.config)
             var seen = Set<UUID>()
             var hasChatGPT = false
             initial = saved.filter { item in

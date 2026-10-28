@@ -122,16 +122,55 @@ final class DynamicSettingsTests: XCTestCase {
         let name = "AIQuotaIslandTests.\(UUID().uuidString)"
         let defaults = UserDefaults(suiteName: name)!
         defer { defaults.removePersistentDomain(forName: name) }
-        defaults.set(Data(#"[{"id":"codex","displayName":"Codex","isVisible":true,"showInCompact":true},{"id":"spark","displayName":"工作账号","isVisible":true,"showInCompact":false}]"#.utf8), forKey: "providerConfigs")
+        defaults.set(Data(#"[{"id":"codex","displayName":"Codex","isVisible":true,"showInCompact":true},{"id":"removedProvider","displayName":"旧服务"},{"id":"opencodeGo","displayName":"工作账号","isVisible":true,"showInCompact":false}]"#.utf8), forKey: "providerConfigs")
         let settings = AppSettings(defaults: defaults)
         XCTAssertEqual(settings.providers.count, 2)
         XCTAssertEqual(settings.providers[1].remark, "工作账号")
-        XCTAssertEqual(settings.providers[1].displayName, "讯飞-x2.6临时")
+        XCTAssertEqual(settings.providers[1].displayName, "OpenCode Go")
         XCTAssertTrue(settings.providers[1].isLegacy)
         settings.providers[1].remark = "新的备注"
         let reloaded = AppSettings(defaults: defaults)
         XCTAssertEqual(settings.providers.map(\.id), reloaded.providers.map(\.id))
         XCTAssertEqual(reloaded.providers[1].remark, "新的备注")
+    }
+
+    @MainActor func testLegacySparkConfigurationIsPreserved() {
+        let name = "AIQuotaIslandTests.\(UUID().uuidString)"
+        let defaults = UserDefaults(suiteName: name)!
+        defer { defaults.removePersistentDomain(forName: name) }
+        defaults.set(Data(#"[{"id":"spark","displayName":"讯飞星火 X2.6","isVisible":true,"showInCompact":false}]"#.utf8), forKey: "providerConfigs")
+        let settings = AppSettings(defaults: defaults)
+        let spark = settings.providers.first { $0.provider == .spark }
+        XCTAssertNotNil(spark)
+        XCTAssertEqual(spark?.remark, "")
+        XCTAssertEqual(spark?.isLegacy, true)
+    }
+
+    @MainActor func testRemovedProviderDoesNotResetOtherSavedInstances() throws {
+        let name = "AIQuotaIslandTests.\(UUID().uuidString)"
+        let defaults = UserDefaults(suiteName: name)!
+        defer { defaults.removePersistentDomain(forName: name) }
+        var work = ProviderConfig(provider: .opencodeGo)
+        work.remark = "工作账号"
+        work.showInCompact = true
+        var custom = ProviderConfig(provider: .custom, name: "自定义额度")
+        custom.script = CustomScriptGuide.starter
+        custom.isVisible = false
+        let expected = [ProviderConfig(provider: .codex), work, custom]
+        let encoded = try JSONEncoder().encode(expected)
+        var rows = try XCTUnwrap(JSONSerialization.jsonObject(with: encoded) as? [[String: Any]])
+        rows.insert(["id": UUID().uuidString, "provider": "removedProvider"], at: 1)
+        defaults.set(try JSONSerialization.data(withJSONObject: rows), forKey: "providerConfigs")
+        defaults.set(15, forKey: "refreshMinutes")
+        defaults.set(false, forKey: "desktopVisible")
+
+        let settings = AppSettings(defaults: defaults)
+        XCTAssertEqual(settings.providers, expected)
+        XCTAssertEqual(settings.refreshMinutes, 15)
+        XCTAssertFalse(settings.desktopVisible)
+        let saved = try XCTUnwrap(defaults.data(forKey: "providerConfigs"))
+        XCTAssertEqual(try JSONDecoder().decode([ProviderConfig].self, from: saved), expected)
+        XCTAssertEqual(AppSettings(defaults: defaults).providers, expected)
     }
 }
 

@@ -71,10 +71,7 @@ struct AddProviderView: View {
             else { selected = ProviderConfig(provider: provider) }
         } label: {
             HStack(spacing: 12) {
-                ProviderMonogram(symbol: provider.compactSymbol, size: 20)
-                    .foregroundStyle(Color.accentColor)
-                    .frame(width: 44, height: 44)
-                    .background(.quaternary.opacity(0.4), in: RoundedRectangle(cornerRadius: 11))
+                ProviderIcon(provider: provider, size: 44)
                 VStack(alignment: .leading, spacing: 5) {
                     Text(provider.defaultName).font(.system(size: 15, weight: .semibold)).lineLimit(1)
                     Text(provider.website).font(.caption).foregroundStyle(.secondary).lineLimit(1)

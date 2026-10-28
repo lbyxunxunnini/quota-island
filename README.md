@@ -1,7 +1,7 @@
 # 配额岛 · Quota Island
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-0.1.0-green.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-0.1.2-green.svg)](CHANGELOG.md)
 ![macOS](https://img.shields.io/badge/macOS-15.0%2B-black.svg)
 
 配额岛是一个原生 macOS AI 额度监控 App，使用 SwiftUI 与 AppKit，在刘海区域和桌面面板中展示额度、余额与重置时间。
@@ -11,13 +11,21 @@
 ## 功能
 
 - 刘海精简视图、展开详情与桌面额度面板，共享同一份查询快照。
-- 内置 Codex、OpenCode Go、讯飞星火 X2.6、DeepSeek、Kimi Code、GLM、MiniMax、OpenRouter 和 StepFun 适配器。
+- 内置 Codex、OpenCode Go、DeepSeek、Kimi Code、GLM、MiniMax、OpenRouter 和 StepFun 适配器。
 - 添加多个服务实例，设置名称、备注、排序、卡片样式及显示位置；Codex 使用本机登录，仅保留一个实例。
 - 支持自定义 HTTP 请求与 JavaScript 额度提取脚本，提供本地脚本格式化和预览。
 - 刷新间隔可选 1、3、5、10、15、30 分钟，默认 3 分钟，也可从菜单栏立即刷新。
 - App 中配置的凭据保存在 macOS Keychain，普通显示配置保存在本机。
 
+个人分支保留讯飞星火 X2.6 额度查询支持。
+
 各服务需要相应账号或套餐凭据。内置适配器不代表所有服务均已完成实际账号验证；服务端接口变化也可能影响查询。
+
+## 下载
+
+当前版本为 **0.1.2**，可从 [GitHub Releases](https://github.com/lbyxunxunnini/quota-island/releases/tag/0.1.2) 下载适用于 Apple Silicon 与 Intel 的安装包。
+
+本版修复 App 图标四角显示为直角的问题。上述公开安装包来自主分支，不包含个人分支保留的讯飞支持；需要讯飞功能请从个人分支源码构建。
 
 ## 构建与运行
 

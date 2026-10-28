@@ -6,12 +6,9 @@ enum QuotaPalette {
     static let track = Color(red: 0.50, green: 0.58, blue: 0.73)
     static let remainingGreen = Color(red: 35.0 / 255, green: 210.0 / 255, blue: 82.0 / 255)
     static let ocean = Color(red: 0.20, green: 0.57, blue: 0.74)
-    static let orange = Color(red: 1, green: 0.66, blue: 0.30)
     static let peach = Color(red: 1, green: 0.82, blue: 0.68)
     static let red = Color(red: 1, green: 0.40, blue: 0.43)
 
-    static func ringAccent(for id: ProviderID) -> Color { id == .spark ? orange : remainingGreen }
-    static func barAccent(for id: ProviderID) -> Color { id == .spark ? orange : ocean }
 }
 
 struct ProviderMonogram: View {
@@ -26,6 +23,31 @@ struct ProviderMonogram: View {
                 Text(symbol).font(.system(size: size, weight: .bold, design: .rounded))
             }
         }
+    }
+}
+
+struct ProviderIcon: View {
+    let provider: ProviderID
+    var symbol: String? = nil
+    var size: CGFloat = 28
+
+    var body: some View {
+        Group {
+            if provider == .custom {
+                ProviderMonogram(symbol: symbol ?? provider.compactSymbol, size: size * 0.55)
+                    .frame(width: size, height: size)
+                    .background(.quaternary.opacity(0.4))
+            } else {
+                Image("Provider-\(provider.rawValue)")
+                    .renderingMode(.original)
+                    .resizable()
+                    .interpolation(.high)
+                    .scaledToFit()
+                    .frame(width: size, height: size)
+            }
+        }
+        .clipShape(RoundedRectangle(cornerRadius: size * 0.22, style: .continuous))
+        .accessibilityLabel(provider.defaultName)
     }
 }
 
