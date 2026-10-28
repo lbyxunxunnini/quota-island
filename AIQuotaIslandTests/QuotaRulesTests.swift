@@ -86,6 +86,24 @@ final class QuotaRulesTests: XCTestCase {
 }
 
 final class DynamicSettingsTests: XCTestCase {
+    func testCustomIconDefaultsAndPersistence() throws {
+        var config = ProviderConfig(provider: .custom, name: "讯飞")
+        XCTAssertEqual(config.iconSymbol, "讯")
+        config.customName = "alpha"
+        XCTAssertEqual(config.iconSymbol, "A")
+        config.customName = "123"
+        XCTAssertEqual(config.iconSymbol, "1")
+        config.iconText = "星"
+        config.iconImage = Data([1, 2, 3])
+        let restored = try JSONDecoder().decode(ProviderConfig.self, from: JSONEncoder().encode(config))
+        XCTAssertEqual(restored.iconSymbol, "星")
+        XCTAssertEqual(restored.iconImage, config.iconImage)
+        let old = Data(#"{"id":"12345678-1234-1234-1234-123456789012","provider":"custom","customName":"旧模型"}"#.utf8)
+        let legacy = try JSONDecoder().decode(ProviderConfig.self, from: old)
+        XCTAssertEqual(legacy.iconSymbol, "旧")
+        XCTAssertNil(legacy.iconImage)
+    }
+
     @MainActor func testDefaultAndNewNotchRulesPersistWithoutDuplicateChatGPT() throws {
         let name = "AIQuotaIslandTests.\(UUID().uuidString)"
         let defaults = UserDefaults(suiteName: name)!

@@ -83,7 +83,7 @@ struct QuotaCardView: View {
 
     private var name: some View {
         HStack(spacing: 7) {
-            ProviderIcon(provider: config.provider, symbol: config.compactSymbol, size: 22)
+            ProviderIcon(provider: config.provider, symbol: config.iconSymbol, imageData: config.iconImage, size: 22)
             Text(config.title).font(.system(size: 18, weight: .semibold))
                 .lineLimit(1).minimumScaleFactor(0.75)
         }
